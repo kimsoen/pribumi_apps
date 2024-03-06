@@ -5,7 +5,7 @@ import 'package:pribumi_apps/theme.dart';
 
 import 'pages/home_page.dart';
 import 'pages/maps_page.dart';
-import 'pages/whaitlist_page.dart';
+// import 'pages/whaitlist_page.dart';
 
 class NavBarpage extends StatefulWidget {
   const NavBarpage({super.key});
@@ -29,7 +29,7 @@ class _NavBarpageState extends State<NavBarpage> {
         // case 2:
         //   return const WaitlistPage();
         case 2:
-          return const infoPage();
+          return const InfoPage();
 
         default:
           return const HomePage();
@@ -41,7 +41,7 @@ class _NavBarpageState extends State<NavBarpage> {
           selectedIndex: currentindex,
           height: 60,
           elevation: 0,
-          indicatorColor: Color(0x00670196),
+          indicatorColor: const Color(0x00670196),
           onDestinationSelected: (value) {
             setState(() {
               currentindex = value;

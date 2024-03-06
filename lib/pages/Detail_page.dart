@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../theme.dart';
+import 'Widgets/listimage_item.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
@@ -13,7 +14,7 @@ class DetailPage extends StatelessWidget {
         height: 260,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(20),
+              bottom: Radius.circular(15),
             ),
             image: DecorationImage(
                 image: AssetImage('assets/house1.png'), fit: BoxFit.fill)),
@@ -27,7 +28,7 @@ class DetailPage extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: const Color(0xAB6B6B6D),
+                  color: const Color(0xEFD8D8DB),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: IconButton(
@@ -43,15 +44,15 @@ class DetailPage extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: const Color(0xAB6B6B6D),
+                  color: const Color(0xEFD8D8DB),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: IconButton(
                     onPressed: () {},
                     icon: const Icon(
-                      Icons.book_outlined,
+                      Icons.book_rounded,
                       size: 22,
-                      color: Colors.yellow,
+                      color: Colors.black,
                     )),
               ),
             ],
@@ -66,27 +67,31 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ListImage(),
+                  ListImage(),
+                  ListImage(),
+                  ListImage(),
+                  ListImage(),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Divider(),
             Text(
-              'Perum Anugrah indahnyoo',
+              'Perum Anugrah indah',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: textPrimarystyle.copyWith(fontSize: 20, fontWeight: bold),
             ),
-            const Text('jl. letnan  no.98'),
-            const SizedBox(height: 7),
-            Container(
-              height: 132,
-              width: double.infinity,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: const GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(-7.3701444, 108.2391412),
-                  zoom: 14,
-                ),
-              ),
+            const Text(
+              'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+              maxLines: 2,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 7),
             Text(
               'Deskripsi',
               style:
@@ -97,18 +102,88 @@ class DetailPage extends StatelessWidget {
                 'An exclusive enclave of luxurious homes along a tranquil river. Meticulously designed, each estate offers modern amenities, panoramic views, and the epitome of refined living.'),
             const SizedBox(height: 7),
             Text(
-              'Fasilitas',
+              'Akses',
               style:
                   textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
             Row(
               children: [
-                Icon(Icons.done_outline, color: Colors.green),
+                Icon(Icons.report_gmailerrorred_rounded, color: bgColor),
+                const SizedBox(width: 8),
                 Text(
-                  '83 m2 luas tanah',
+                  '800 m ke jalan RAYA',
+                  style: textPrimarystyle.copyWith(
+                      fontSize: 12, fontWeight: semiBold),
                 )
               ],
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget miniMaps() {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        height: 200,
+        width: double.infinity,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+        child: const GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: LatLng(-7.3701444, 108.2391412),
+            zoom: 14,
+          ),
+        ),
+      );
+    }
+
+    Widget footer() {
+      return Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              height: 50,
+              width: 140,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'On The Way ',
+                    style: textPrimarystyle.copyWith(
+                        fontSize: 14, fontWeight: bold),
+                  ),
+                  const Icon(Icons.alt_route)
+                ],
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 140,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Icon(Icons.call_outlined),
+                  Text(
+                    'HUBUNGI',
+                    style: textPrimarystyle.copyWith(
+                        fontSize: 14, fontWeight: bold),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       );
@@ -120,6 +195,8 @@ class DetailPage extends StatelessWidget {
           children: [
             header(),
             content(),
+            miniMaps(),
+            footer(),
           ],
         ),
       ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pribumi_apps/pages/Detail_page.dart';
+// import 'package:pribumi_apps/pages/Detail_page.dart';
 import 'package:pribumi_apps/theme.dart';
+
+import 'Widgets/Listpopuler_item.dart';
+import 'Widgets/listContent_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -59,7 +62,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Center(
             child: Container(
               height: 50,
@@ -115,9 +118,9 @@ class HomePage extends StatelessWidget {
             style: textPrimarystyle.copyWith(fontSize: 16, fontWeight: bold),
           ),
           const SizedBox(height: 10),
-          const listPopuler(),
-          const listPopuler(),
-          const listPopuler(),
+          const ListPerumahan(),
+          const ListPerumahan(),
+          const ListPerumahan(),
         ],
       );
     }
@@ -132,171 +135,6 @@ class HomePage extends StatelessWidget {
             content(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class listPopuler extends StatelessWidget {
-  const listPopuler({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DetailPage(),
-            ));
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 10),
-        height: 100,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: const Color(0x1F29292E),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              height: 75,
-              width: 75,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      'assets/house.png',
-                    ),
-                    fit: BoxFit.fill),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 15,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Perum bumi karsanagara',
-                    overflow: TextOverflow.visible,
-                    maxLines: 1,
-                    style: textPrimarystyle.copyWith(
-                        fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Kahuripan, Kec. Tawang, Tasikmalaya,',
-                    style: secondarytextstyle.copyWith(fontSize: 13),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  // const Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     Icon(
-                  //       Icons.bathtub_outlined,
-                  //     ),
-                  //     Icon(
-                  //       Icons.garage_outlined,
-                  //     ),
-                  //     Icon(
-                  //       Icons.account_tree_outlined,
-                  //     ),
-                  //   ],
-                  // )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ListContent extends StatelessWidget {
-  const ListContent({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      width: MediaQuery.of(context).size.width / 1.2,
-      decoration: BoxDecoration(
-          color: const Color(0x1F29292E),
-          borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 210,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/house1.png',
-                  ),
-                  fit: BoxFit.fill),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Perumahan Pelangi Residence',
-                  style: textPrimarystyle.copyWith(
-                      fontSize: 18, fontWeight: semiBold),
-                ),
-                Text(
-                  'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
-                  style: secondarytextstyle.copyWith(
-                      fontSize: 14, fontWeight: regular),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     Image(
-                //       image: AssetImage(
-                //         'assets/kasur.png',
-                //       ),
-                //       width: 20,
-                //     ),
-                //     Image(
-                //       image: AssetImage(
-                //         'assets/Wifi.png',
-                //       ),
-                //       width: 20,
-                //     ),
-                //     Image(
-                //       image: AssetImage(
-                //         'assets/Bath.png',
-                //       ),
-                //       width: 20,
-                //     ),
-                //     Image(
-                //       image: AssetImage(
-                //         'assets/garage.png',
-                //       ),
-                //       width: 20,
-                //     ),
-                //   ],
-                // )
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
