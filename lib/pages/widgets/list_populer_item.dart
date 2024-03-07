@@ -11,7 +11,7 @@ class ListPerumahan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       height: 100,
       decoration: BoxDecoration(

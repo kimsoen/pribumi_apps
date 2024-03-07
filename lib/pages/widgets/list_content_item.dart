@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme.dart';
-import '../Detail_page.dart';
+import '../detail_page.dart';
 
 class ListContent extends StatelessWidget {
   const ListContent({

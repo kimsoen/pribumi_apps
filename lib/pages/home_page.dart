@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-// import 'package:pribumi_apps/pages/Detail_page.dart';
 import 'package:pribumi_apps/theme.dart';
 
-import 'Widgets/Listpopuler_item.dart';
-import 'Widgets/listContent_item.dart';
+import 'widgets/list_populer_item.dart';
+import 'widgets/list_content_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

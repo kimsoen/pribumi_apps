@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../theme.dart';
-import 'Widgets/listimage_item.dart';
+import 'Widgets/list_image_item.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
