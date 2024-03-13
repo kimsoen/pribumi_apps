@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:pribumi_apps/services/location_service.dart';
 import 'package:pribumi_apps/theme.dart';
-
 import 'widgets/list_populer_item.dart';
 import 'widgets/list_content_item.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Future.microtask(() => LocationService().chekPermission(context));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,32 +28,58 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Location",
-                    style: textPrimarystyle.copyWith(
-                        fontSize: 16, fontWeight: semiBold),
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.green[800],
-                        size: 20,
-                      ),
-                      Text(
-                        'Your location',
-                        style: textPrimarystyle.copyWith(
-                            fontSize: 13, fontWeight: semiBold),
-                      )
-                    ],
-                  ),
-                ],
+              Text(
+                "Location",
+                style: textPrimarystyle.copyWith(
+                    fontSize: 16, fontWeight: semiBold),
               ),
               IconButton(
                   onPressed: () {}, icon: const Icon(Iconsax.notification)),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.location_on,
+                color: Colors.green[800],
+                size: 20,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              FutureBuilder(
+                future: LocationService().getAddress(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                      ),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Flexible(
+                      child: Text(
+                        snapshot.data!,
+                        style: textPrimarystyle.copyWith(
+                            fontSize: 13, fontWeight: semiBold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  } else {
+                    return Flexible(
+                      child: Text(
+                        'alamat tidak ditemukan',
+                        style: textPrimarystyle.copyWith(
+                            fontSize: 13, fontWeight: semiBold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  }
+                },
+              )
             ],
           ),
           const SizedBox(height: 15),
@@ -70,6 +107,7 @@ class HomePage extends StatelessWidget {
                   color: const Color(0x1F29292E),
                   borderRadius: BorderRadius.circular(10)),
               child: TextFormField(
+                readOnly: true,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(borderSide: BorderSide.none),
                     prefixIcon: Icon(Icons.search),
