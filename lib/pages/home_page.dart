@@ -4,8 +4,8 @@ import 'package:pribumi_apps/data/data_resedential.dart';
 import 'package:pribumi_apps/services/location_service.dart';
 import 'package:pribumi_apps/services/residential_service.dart';
 import 'package:pribumi_apps/theme.dart';
-import 'widgets/list_populer_item.dart';
-import 'widgets/list_content_item.dart';
+import 'widgets/residential_tile.dart';
+import 'widgets/residential_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
