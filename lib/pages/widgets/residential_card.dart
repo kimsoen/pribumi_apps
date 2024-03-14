@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pribumi_apps/models/residential_model.dart';
 
 import '../../theme.dart';
 import '../detail_page.dart';
 
-class ListContent extends StatelessWidget {
-  const ListContent({
+class ResidentialCard extends StatelessWidget {
+  const ResidentialCard({
     super.key,
+    required this.residential,
   });
+
+  final ResidentialModel residential;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class ListContent extends StatelessWidget {
       child: Container(
         height: 300,
         width: MediaQuery.of(context).size.width / 1.2,
+        margin: const EdgeInsets.only(right: 16.0),
         decoration: BoxDecoration(
             color: const Color(0x1F29292E),
             borderRadius: BorderRadius.circular(20)),
@@ -30,10 +35,10 @@ class ListContent extends StatelessWidget {
             Container(
               height: 210,
               width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
-                      'assets/house1.png',
+                      residential.images ?? '',
                     ),
                     fit: BoxFit.fill),
               ),
@@ -44,7 +49,7 @@ class ListContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Perumahan Pelangi Residence',
+                    residential.name ?? '',
                     style: textPrimarystyle.copyWith(
                         fontSize: 17, fontWeight: semiBold),
                     maxLines: 1,
@@ -52,7 +57,7 @@ class ListContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+                    residential.address ?? '',
                     style: secondarytextstyle.copyWith(
                         fontSize: 12, fontWeight: regular),
                     maxLines: 1,
@@ -67,7 +72,7 @@ class ListContent extends StatelessWidget {
                           const Icon(Icons.route_outlined, size: 20),
                           const SizedBox(width: 5),
                           Text(
-                            '100 M',
+                            'Jarak ${residential.distance!.toStringAsFixed(0)} Km',
                             style: secondarytextstyle.copyWith(),
                           )
                         ],

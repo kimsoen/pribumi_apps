@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:pribumi_apps/data/data_resedential.dart';
 import 'package:pribumi_apps/services/location_service.dart';
+import 'package:pribumi_apps/services/residential_service.dart';
 import 'package:pribumi_apps/theme.dart';
 import 'widgets/list_populer_item.dart';
 import 'widgets/list_content_item.dart';
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Future.microtask(() => LocationService().chekPermission(context));
+    Future.microtask(() => LocationService.chekPermission(context));
     super.initState();
   }
 
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 width: 8,
               ),
               FutureBuilder(
-                future: LocationService().getAddress(),
+                future: LocationService.getAddress(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SizedBox(
@@ -131,14 +133,35 @@ class _HomePageState extends State<HomePage> {
             style: textPrimarystyle.copyWith(fontSize: 16, fontWeight: bold),
           ),
           const SizedBox(height: 10),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                ListContent(),
-                SizedBox(width: 10),
-                ListContent(),
-              ],
+            child: FutureBuilder(
+              future: ResidentialService.listWithDistance(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Row(
+                    children: snapshot.data!
+                        .map(
+                          (e) => ResidentialCard(residential: e),
+                        )
+                        .toList()
+                      // kode untuk mengurutkan dari jarak terdekat ke jarak terjauh
+                      ..sort(
+                        ((a, b) => a.residential.distance!
+                            .compareTo(b.residential.distance!)),
+                      ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
           ),
           const SizedBox(height: 20)
@@ -155,9 +178,11 @@ class _HomePageState extends State<HomePage> {
             style: textPrimarystyle.copyWith(fontSize: 16, fontWeight: bold),
           ),
           const SizedBox(height: 10),
-          const ListPerumahan(),
-          const ListPerumahan(),
-          const ListPerumahan(),
+          Column(
+            children: DataResidential.listResedential
+                .map((e) => const ResidentialTile())
+                .toList(),
+          )
         ],
       );
     }

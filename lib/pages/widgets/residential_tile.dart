@@ -3,8 +3,8 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../theme.dart';
 
-class ListPerumahan extends StatelessWidget {
-  const ListPerumahan({
+class ResidentialTile extends StatelessWidget {
+  const ResidentialTile({
     super.key,
   });
 
