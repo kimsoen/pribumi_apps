@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -20,7 +22,7 @@ class LocationService {
                   onPressed: () async {
                     await Geolocator.requestPermission();
                     if (context.mounted) {
-                      Navigator.pop(context);
+                      exit(0);
                     }
                   },
                   child: const Text('OK'))
