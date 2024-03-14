@@ -12,7 +12,7 @@ _$ResidentialModelImpl _$$ResidentialModelImplFromJson(
       images: json['images'] as String?,
       name: json['name'] as String?,
       address: json['address'] as String?,
-      distance: json['distance'] as String?,
+      distance: (json['distance'] as num?)?.toDouble(),
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
     );

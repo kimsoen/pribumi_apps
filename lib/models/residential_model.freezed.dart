@@ -23,7 +23,7 @@ mixin _$ResidentialModel {
   String? get images => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
-  String? get distance => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $ResidentialModelCopyWith<$Res> {
       {String? images,
       String? name,
       String? address,
-      String? distance,
+      double? distance,
       double? latitude,
       double? longitude});
 }
@@ -84,7 +84,7 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$ResidentialModelImplCopyWith<$Res>
       {String? images,
       String? name,
       String? address,
-      String? distance,
+      double? distance,
       double? latitude,
       double? longitude});
 }
@@ -148,7 +148,7 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -184,7 +184,7 @@ class _$ResidentialModelImpl
   @override
   final String? address;
   @override
-  final String? distance;
+  final double? distance;
   @override
   final double? latitude;
   @override
@@ -249,7 +249,7 @@ abstract class _ResidentialModel implements ResidentialModel {
       {final String? images,
       final String? name,
       final String? address,
-      final String? distance,
+      final double? distance,
       final double? latitude,
       final double? longitude}) = _$ResidentialModelImpl;
 
@@ -263,7 +263,7 @@ abstract class _ResidentialModel implements ResidentialModel {
   @override
   String? get address;
   @override
-  String? get distance;
+  double? get distance;
   @override
   double? get latitude;
   @override

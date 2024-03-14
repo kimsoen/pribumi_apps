@@ -10,7 +10,7 @@ class ResidentialModel with _$ResidentialModel {
     String? images,
     String? name,
     String? address,
-    String? distance,
+    double? distance,
     double? latitude,
     double? longitude,
   }) = _ResidentialModel;
