@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LocationService {
-  chekPermission(BuildContext context) async {
+  static chekPermission(BuildContext context) async {
     LocationPermission check = await Geolocator.checkPermission();
     if (check == LocationPermission.denied ||
         check == LocationPermission.deniedForever) {
@@ -31,38 +31,44 @@ class LocationService {
     }
   }
 
-  Future<Position> _getCurrentPosition() async {
+  static Future<Position?> getCurrentPosition() async {
     try {
-      // Request Permission Location
-      await Geolocator.requestPermission();
+      LocationPermission check = await Geolocator.checkPermission();
 
-      // Get Position
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+      if (check == LocationPermission.whileInUse ||
+          check == LocationPermission.always) {
+        // Get Position
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+        return position;
+      }
 
-      return position;
+      return null;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<String> getAddress() async {
+  static Future<String> getAddress() async {
     try {
       // Get location
-      Position position = await _getCurrentPosition();
+      Position? position = await getCurrentPosition();
+      if (position != null) {
+        // Get placemark list from cordinates
+        List<Placemark> placemarkList = await placemarkFromCoordinates(
+            position.latitude, position.longitude);
 
-      // Get placemark list from cordinates
-      List<Placemark> placemarkList =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
+        // Get placemark
+        Placemark placemark = placemarkList[0];
 
-      // Get placemark
-      Placemark placemark = placemarkList[0];
+        // Get addrress
+        String place =
+            '${placemark.name}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.administrativeArea},';
 
-      // Get addrress
-      String place =
-          '${placemark.name}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.administrativeArea},';
+        return place;
+      }
 
-      return place;
+      return 'alamat tidak ditemukan';
     } catch (e) {
       rethrow;
     }
