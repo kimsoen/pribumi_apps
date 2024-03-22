@@ -33,7 +33,7 @@ class DataResidential {
       name: 'Asri Residence Tamansari',
       images: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.3652894,
       longitude: 108.2076704,
@@ -42,7 +42,7 @@ class DataResidential {
       name: 'Perumahan Bumi Mutiara Mandiri',
       images: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.3849484,
       longitude: 108.203129,
@@ -60,7 +60,7 @@ class DataResidential {
       name: 'Perumahan Grand Mutiara Tasik Regency',
       images: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.2944178,
       longitude: 108.1713606,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "582131524226",
+    "project_id": "pribumi-app-d4eca",
+    "storage_bucket": "pribumi-app-d4eca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582131524226:android:c6bf4055053f92dd6bca9b",
+        "android_client_info": {
+          "package_name": "com.example.pribumi_apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHVQS13rn5dQqMQBnX7jsD0jJBlBJiVsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

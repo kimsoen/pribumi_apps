@@ -80,7 +80,9 @@ class _SearchPageState extends State<SearchPage> {
                     fontSize: 16, fontWeight: semiBold),
               ),
               IconButton(
-                  onPressed: () {}, icon: const Icon(Iconsax.notification)),
+                onPressed: () {},
+                icon: const Icon(Icons.bookmarks_outlined),
+              ),
             ],
           ),
           Row(
@@ -214,11 +216,12 @@ class SearchField extends StatelessWidget {
         child: TextFormField(
           onChanged: onChanged,
           decoration: const InputDecoration(
-              border: UnderlineInputBorder(borderSide: BorderSide.none),
-              prefixIcon: Icon(Icons.search),
-              suffixIcon: Icon(Iconsax.filter),
-              hintText: 'Cari rumah impian anda',
-              hintStyle: TextStyle(fontSize: 14)),
+            border: UnderlineInputBorder(borderSide: BorderSide.none),
+            prefixIcon: Icon(Icons.search),
+            suffixIcon: Icon(Iconsax.filter),
+            hintText: 'Cari rumah impian anda',
+            hintStyle: TextStyle(fontSize: 14),
+          ),
         ),
       ),
     );

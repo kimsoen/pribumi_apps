@@ -8,13 +8,17 @@ part 'residential_model.freezed.dart';
 class ResidentialModel with _$ResidentialModel {
   factory ResidentialModel({
     String? images,
+    String? photos,
     String? name,
     String? address,
+    String? description,
+    String? access,
     double? distance,
     double? latitude,
     double? longitude,
   }) = _ResidentialModel;
 
-  factory ResidentialModel.fromJson(Map<String, dynamic> json) =>
+  factory ResidentialModel.fromJson(
+          Map<String, dynamic> json, Map<String, dynamic> data) =>
       _$ResidentialModelFromJson(json);
 }
