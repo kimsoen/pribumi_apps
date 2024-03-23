@@ -167,6 +167,9 @@ class _HomePageState extends State<HomePage> {
                 .map((e) => const ResidentialTile())
                 .toList(),
           )
+          // FutureBuilder(future: Database.getData(), builder: (context, snapshot) {
+
+          // },)
         ],
       );
     }

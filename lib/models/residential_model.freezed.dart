@@ -14,20 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ResidentialModel _$ResidentialModelFromJson(Map<String, dynamic> json) {
-  return _ResidentialModel.fromJson(json);
-}
-
 /// @nodoc
 mixin _$ResidentialModel {
-  String? get images => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  List<String>? get photos => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  List<String>? get access => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ResidentialModelCopyWith<ResidentialModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -40,9 +39,13 @@ abstract class $ResidentialModelCopyWith<$Res> {
       _$ResidentialModelCopyWithImpl<$Res, ResidentialModel>;
   @useResult
   $Res call(
-      {String? images,
+      {String? id,
+      String? image,
+      List<String>? photos,
       String? name,
       String? address,
+      String? description,
+      List<String>? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -61,18 +64,30 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? images = freezed,
+    Object? id = freezed,
+    Object? image = freezed,
+    Object? photos = freezed,
     Object? name = freezed,
     Object? address = freezed,
+    Object? description = freezed,
+    Object? access = freezed,
     Object? distance = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
-      images: freezed == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photos: freezed == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -81,6 +96,14 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      access: freezed == access
+          ? _value.access
+          : access // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -106,9 +129,13 @@ abstract class _$$ResidentialModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? images,
+      {String? id,
+      String? image,
+      List<String>? photos,
       String? name,
       String? address,
+      String? description,
+      List<String>? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -125,18 +152,30 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? images = freezed,
+    Object? id = freezed,
+    Object? image = freezed,
+    Object? photos = freezed,
     Object? name = freezed,
     Object? address = freezed,
+    Object? description = freezed,
+    Object? access = freezed,
     Object? distance = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
     return _then(_$ResidentialModelImpl(
-      images: freezed == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      photos: freezed == photos
+          ? _value._photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -145,6 +184,14 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      access: freezed == access
+          ? _value._access
+          : access // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -162,27 +209,54 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$ResidentialModelImpl
     with DiagnosticableTreeMixin
     implements _ResidentialModel {
   _$ResidentialModelImpl(
-      {this.images,
+      {this.id,
+      this.image,
+      final List<String>? photos,
       this.name,
       this.address,
+      this.description,
+      final List<String>? access,
       this.distance,
       this.latitude,
-      this.longitude});
-
-  factory _$ResidentialModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ResidentialModelImplFromJson(json);
+      this.longitude})
+      : _photos = photos,
+        _access = access;
 
   @override
-  final String? images;
+  final String? id;
+  @override
+  final String? image;
+  final List<String>? _photos;
+  @override
+  List<String>? get photos {
+    final value = _photos;
+    if (value == null) return null;
+    if (_photos is EqualUnmodifiableListView) return _photos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? name;
   @override
   final String? address;
+  @override
+  final String? description;
+  final List<String>? _access;
+  @override
+  List<String>? get access {
+    final value = _access;
+    if (value == null) return null;
+    if (_access is EqualUnmodifiableListView) return _access;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final double? distance;
   @override
@@ -192,7 +266,7 @@ class _$ResidentialModelImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ResidentialModel(images: $images, name: $name, address: $address, distance: $distance, latitude: $latitude, longitude: $longitude)';
+    return 'ResidentialModel(id: $id, image: $image, photos: $photos, name: $name, address: $address, description: $description, access: $access, distance: $distance, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -200,9 +274,13 @@ class _$ResidentialModelImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ResidentialModel'))
-      ..add(DiagnosticsProperty('images', images))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('image', image))
+      ..add(DiagnosticsProperty('photos', photos))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('access', access))
       ..add(DiagnosticsProperty('distance', distance))
       ..add(DiagnosticsProperty('latitude', latitude))
       ..add(DiagnosticsProperty('longitude', longitude));
@@ -213,9 +291,14 @@ class _$ResidentialModelImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ResidentialModelImpl &&
-            (identical(other.images, images) || other.images == images) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.image, image) || other.image == image) &&
+            const DeepCollectionEquality().equals(other._photos, _photos) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._access, _access) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
             (identical(other.latitude, latitude) ||
@@ -224,10 +307,19 @@ class _$ResidentialModelImpl
                 other.longitude == longitude));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, images, name, address, distance, latitude, longitude);
+      runtimeType,
+      id,
+      image,
+      const DeepCollectionEquality().hash(_photos),
+      name,
+      address,
+      description,
+      const DeepCollectionEquality().hash(_access),
+      distance,
+      latitude,
+      longitude);
 
   @JsonKey(ignore: true)
   @override
@@ -235,33 +327,35 @@ class _$ResidentialModelImpl
   _$$ResidentialModelImplCopyWith<_$ResidentialModelImpl> get copyWith =>
       __$$ResidentialModelImplCopyWithImpl<_$ResidentialModelImpl>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ResidentialModelImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ResidentialModel implements ResidentialModel {
   factory _ResidentialModel(
-      {final String? images,
+      {final String? id,
+      final String? image,
+      final List<String>? photos,
       final String? name,
       final String? address,
+      final String? description,
+      final List<String>? access,
       final double? distance,
       final double? latitude,
       final double? longitude}) = _$ResidentialModelImpl;
 
-  factory _ResidentialModel.fromJson(Map<String, dynamic> json) =
-      _$ResidentialModelImpl.fromJson;
-
   @override
-  String? get images;
+  String? get id;
+  @override
+  String? get image;
+  @override
+  List<String>? get photos;
   @override
   String? get name;
   @override
   String? get address;
+  @override
+  String? get description;
+  @override
+  List<String>? get access;
   @override
   double? get distance;
   @override

@@ -38,7 +38,7 @@ class ResidentialCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
-                      residential.images ?? '',
+                      residential.image ?? '',
                     ),
                     fit: BoxFit.fill),
               ),

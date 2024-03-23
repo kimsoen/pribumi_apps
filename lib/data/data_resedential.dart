@@ -4,7 +4,7 @@ class DataResidential {
   static List<ResidentialModel> listResedential = [
     ResidentialModel(
       name: 'Perumahan Andalusia',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
           'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
@@ -13,7 +13,7 @@ class DataResidential {
     ),
     ResidentialModel(
       name: 'Perumahan Grya Parahyangan',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
           'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
@@ -22,7 +22,7 @@ class DataResidential {
     ),
     ResidentialModel(
       name: 'Perumahan Pratama Cisalak',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
           'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
@@ -31,25 +31,25 @@ class DataResidential {
     ),
     ResidentialModel(
       name: 'Asri Residence Tamansari',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.3652894,
       longitude: 108.2076704,
     ),
     ResidentialModel(
       name: 'Perumahan Bumi Mutiara Mandiri',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.3849484,
       longitude: 108.203129,
     ),
     ResidentialModel(
       name: 'Perumahan Bumi Parahyangan',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
           'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
@@ -58,9 +58,9 @@ class DataResidential {
     ),
     ResidentialModel(
       name: 'Perumahan Grand Mutiara Tasik Regency',
-      images: 'assets/house1.png',
+      image: 'assets/house1.png',
       address:
-          'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+          'Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
       distance: 0.0,
       latitude: -7.2944178,
       longitude: 108.1713606,

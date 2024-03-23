@@ -21,7 +21,7 @@ class ResidentialService {
           name: residential.name,
           address: residential.address,
           distance: distance,
-          images: residential.images,
+          image: residential.image,
           latitude: residential.latitude,
           longitude: residential.longitude,
         );
