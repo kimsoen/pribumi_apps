@@ -3,7 +3,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pribumi_apps/services/distance_service.dart';
-import 'package:pribumi_apps/services/residential_service.dart';
 
 import '../controller/database_controller.dart';
 import '../models/residential_model.dart';
