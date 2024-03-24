@@ -3,15 +3,15 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pribumi_apps/services/distance_service.dart';
+import 'package:pribumi_apps/services/residential_service.dart';
 
 import '../controller/database_controller.dart';
 import '../models/residential_model.dart';
 
-
 class DestinationViewModel extends GetxController {
-  final List<ResidentialModel> _destinations = [];
+  final List<ResidentialModel> _residentials = [];
 
-  List<ResidentialModel> _foundDestination = [];
+  List<ResidentialModel> _foundresidential = [];
 
   final RxString? _address = RxString('');
 
@@ -25,12 +25,12 @@ class DestinationViewModel extends GetxController {
 
   RxString? get address => _address;
 
-  List<ResidentialModel> get destinations => _destinations;
+  List<ResidentialModel> get residentials => _residentials;
 
-  List<ResidentialModel> get foundDestination => _foundDestination;
+  List<ResidentialModel> get foundDestination => _foundresidential;
 
   set setFoundDestination(List<ResidentialModel> value) {
-    _foundDestination = value;
+    _foundresidential = value;
   }
 
   Future<void> _getDestinations() async {
@@ -43,10 +43,10 @@ class DestinationViewModel extends GetxController {
     // Looping destinationsSnapshot
     for (var residential in residentialSnapshot) {
       // Add data from destinationsSnapshot to destinations
-      destinations.add(
+      residentials.add(
         // Parsing JSON destination
-        ResidentialModel.fromJson(
-            residential.id as Map<String, dynamic>, residential.data() as Map<String, dynamic>),
+        ResidentialModel.fromJson(residential.id as Map<String, dynamic>,
+            residential.data() as Map<String, dynamic>),
       );
     }
 
@@ -65,11 +65,11 @@ class DestinationViewModel extends GetxController {
 
     // Condition nameDestination is empety
     if (nameDestination.isEmpty) {
-      result = destinations;
+      result = residentials;
 
       // Condition nameDestination not empety
     } else {
-      result = destinations
+      result = residentials
           .where(
             (element) => element.name.toString().toLowerCase().contains(
                   nameDestination.toLowerCase(),
@@ -137,8 +137,8 @@ class DestinationViewModel extends GetxController {
 
       // Parsing JSON destinationSnapshot
       var residential = destinationSnapshot.map(
-        (e) =>
-            ResidentialModel.fromJson(e.id as Map<String, dynamic>, e.data() as Map<String, dynamic>),
+        (e) => ResidentialModel.fromJson(
+            e.id as Map<String, dynamic>, e.data() as Map<String, dynamic>),
       );
 
       // Get location, Calculate distance between and update distance
@@ -178,7 +178,7 @@ class DestinationViewModel extends GetxController {
   @override
   void onInit() {
     _getDestinations();
-    setFoundDestination = destinations;
+    setFoundDestination = residentials;
     _getAddress();
     _distanceInKm();
     super.onInit();

@@ -21,8 +21,11 @@ ResidentialModel _$ResidentialModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ResidentialModel {
   String? get images => throw _privateConstructorUsedError;
+  String? get photos => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get access => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
@@ -41,8 +44,11 @@ abstract class $ResidentialModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? images,
+      String? photos,
       String? name,
       String? address,
+      String? description,
+      String? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -62,8 +68,11 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
   @override
   $Res call({
     Object? images = freezed,
+    Object? photos = freezed,
     Object? name = freezed,
     Object? address = freezed,
+    Object? description = freezed,
+    Object? access = freezed,
     Object? distance = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
@@ -73,6 +82,10 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as String?,
+      photos: freezed == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -80,6 +93,14 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      access: freezed == access
+          ? _value.access
+          : access // ignore: cast_nullable_to_non_nullable
               as String?,
       distance: freezed == distance
           ? _value.distance
@@ -107,8 +128,11 @@ abstract class _$$ResidentialModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? images,
+      String? photos,
       String? name,
       String? address,
+      String? description,
+      String? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -126,8 +150,11 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? images = freezed,
+    Object? photos = freezed,
     Object? name = freezed,
     Object? address = freezed,
+    Object? description = freezed,
+    Object? access = freezed,
     Object? distance = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
@@ -137,6 +164,10 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as String?,
+      photos: freezed == photos
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -144,6 +175,14 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      access: freezed == access
+          ? _value.access
+          : access // ignore: cast_nullable_to_non_nullable
               as String?,
       distance: freezed == distance
           ? _value.distance
@@ -168,8 +207,11 @@ class _$ResidentialModelImpl
     implements _ResidentialModel {
   _$ResidentialModelImpl(
       {this.images,
+      this.photos,
       this.name,
       this.address,
+      this.description,
+      this.access,
       this.distance,
       this.latitude,
       this.longitude});
@@ -180,9 +222,15 @@ class _$ResidentialModelImpl
   @override
   final String? images;
   @override
+  final String? photos;
+  @override
   final String? name;
   @override
   final String? address;
+  @override
+  final String? description;
+  @override
+  final String? access;
   @override
   final double? distance;
   @override
@@ -192,7 +240,7 @@ class _$ResidentialModelImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ResidentialModel(images: $images, name: $name, address: $address, distance: $distance, latitude: $latitude, longitude: $longitude)';
+    return 'ResidentialModel(images: $images, photos: $photos, name: $name, address: $address, description: $description, access: $access, distance: $distance, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -201,8 +249,11 @@ class _$ResidentialModelImpl
     properties
       ..add(DiagnosticsProperty('type', 'ResidentialModel'))
       ..add(DiagnosticsProperty('images', images))
+      ..add(DiagnosticsProperty('photos', photos))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('address', address))
+      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('access', access))
       ..add(DiagnosticsProperty('distance', distance))
       ..add(DiagnosticsProperty('latitude', latitude))
       ..add(DiagnosticsProperty('longitude', longitude));
@@ -214,8 +265,12 @@ class _$ResidentialModelImpl
         (other.runtimeType == runtimeType &&
             other is _$ResidentialModelImpl &&
             (identical(other.images, images) || other.images == images) &&
+            (identical(other.photos, photos) || other.photos == photos) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.access, access) || other.access == access) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
             (identical(other.latitude, latitude) ||
@@ -226,8 +281,8 @@ class _$ResidentialModelImpl
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, images, name, address, distance, latitude, longitude);
+  int get hashCode => Object.hash(runtimeType, images, photos, name, address,
+      description, access, distance, latitude, longitude);
 
   @JsonKey(ignore: true)
   @override
@@ -247,8 +302,11 @@ class _$ResidentialModelImpl
 abstract class _ResidentialModel implements ResidentialModel {
   factory _ResidentialModel(
       {final String? images,
+      final String? photos,
       final String? name,
       final String? address,
+      final String? description,
+      final String? access,
       final double? distance,
       final double? latitude,
       final double? longitude}) = _$ResidentialModelImpl;
@@ -259,9 +317,15 @@ abstract class _ResidentialModel implements ResidentialModel {
   @override
   String? get images;
   @override
+  String? get photos;
+  @override
   String? get name;
   @override
   String? get address;
+  @override
+  String? get description;
+  @override
+  String? get access;
   @override
   double? get distance;
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pribumi_apps/controller/database_controller.dart';
 import 'package:pribumi_apps/data/data_resedential.dart';
+import 'package:pribumi_apps/models/residential_model.dart';
 import 'package:pribumi_apps/pages/search_page.dart';
 import 'package:pribumi_apps/services/location_service.dart';
 import 'package:pribumi_apps/services/residential_service.dart';
@@ -168,9 +169,6 @@ class _HomePageState extends State<HomePage> {
                 .map((e) => const ResidentialTile())
                 .toList(),
           )
-          // FutureBuilder(future: Database.getData(), builder: (context, snapshot) {
-
-          // },)
         ],
       );
     }
