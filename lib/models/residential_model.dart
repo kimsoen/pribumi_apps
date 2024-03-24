@@ -8,11 +8,11 @@ class ResidentialModel with _$ResidentialModel {
   factory ResidentialModel({
     String? id,
     String? image,
-    List<String>? photos,
+    List<dynamic>? photos,
     String? name,
     String? address,
     String? description,
-    List<String>? access,
+    List<dynamic>? access,
     double? distance,
     double? latitude,
     double? longitude,

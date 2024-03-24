@@ -18,11 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ResidentialModel {
   String? get id => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
-  List<String>? get photos => throw _privateConstructorUsedError;
+  List<dynamic>? get photos => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  List<String>? get access => throw _privateConstructorUsedError;
+  List<dynamic>? get access => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
@@ -41,11 +41,11 @@ abstract class $ResidentialModelCopyWith<$Res> {
   $Res call(
       {String? id,
       String? image,
-      List<String>? photos,
+      List<dynamic>? photos,
       String? name,
       String? address,
       String? description,
-      List<String>? access,
+      List<dynamic>? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -87,7 +87,7 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
       photos: freezed == photos
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -103,7 +103,7 @@ class _$ResidentialModelCopyWithImpl<$Res, $Val extends ResidentialModel>
       access: freezed == access
           ? _value.access
           : access // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -131,11 +131,11 @@ abstract class _$$ResidentialModelImplCopyWith<$Res>
   $Res call(
       {String? id,
       String? image,
-      List<String>? photos,
+      List<dynamic>? photos,
       String? name,
       String? address,
       String? description,
-      List<String>? access,
+      List<dynamic>? access,
       double? distance,
       double? latitude,
       double? longitude});
@@ -175,7 +175,7 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
       photos: freezed == photos
           ? _value._photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class __$$ResidentialModelImplCopyWithImpl<$Res>
       access: freezed == access
           ? _value._access
           : access // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<dynamic>?,
       distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -216,11 +216,11 @@ class _$ResidentialModelImpl
   _$ResidentialModelImpl(
       {this.id,
       this.image,
-      final List<String>? photos,
+      final List<dynamic>? photos,
       this.name,
       this.address,
       this.description,
-      final List<String>? access,
+      final List<dynamic>? access,
       this.distance,
       this.latitude,
       this.longitude})
@@ -231,9 +231,9 @@ class _$ResidentialModelImpl
   final String? id;
   @override
   final String? image;
-  final List<String>? _photos;
+  final List<dynamic>? _photos;
   @override
-  List<String>? get photos {
+  List<dynamic>? get photos {
     final value = _photos;
     if (value == null) return null;
     if (_photos is EqualUnmodifiableListView) return _photos;
@@ -247,9 +247,9 @@ class _$ResidentialModelImpl
   final String? address;
   @override
   final String? description;
-  final List<String>? _access;
+  final List<dynamic>? _access;
   @override
-  List<String>? get access {
+  List<dynamic>? get access {
     final value = _access;
     if (value == null) return null;
     if (_access is EqualUnmodifiableListView) return _access;
@@ -333,11 +333,11 @@ abstract class _ResidentialModel implements ResidentialModel {
   factory _ResidentialModel(
       {final String? id,
       final String? image,
-      final List<String>? photos,
+      final List<dynamic>? photos,
       final String? name,
       final String? address,
       final String? description,
-      final List<String>? access,
+      final List<dynamic>? access,
       final double? distance,
       final double? latitude,
       final double? longitude}) = _$ResidentialModelImpl;
@@ -347,7 +347,7 @@ abstract class _ResidentialModel implements ResidentialModel {
   @override
   String? get image;
   @override
-  List<String>? get photos;
+  List<dynamic>? get photos;
   @override
   String? get name;
   @override
@@ -355,7 +355,7 @@ abstract class _ResidentialModel implements ResidentialModel {
   @override
   String? get description;
   @override
-  List<String>? get access;
+  List<dynamic>? get access;
   @override
   double? get distance;
   @override

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pribumi_apps/data/data_resedential.dart';
-import 'package:pribumi_apps/pages/search_page.dart';
+import 'package:pribumi_apps/misc/methods.dart';
+import 'package:pribumi_apps/pages/widgets/search_button.dart';
+import 'package:pribumi_apps/providers/address_provider.dart';
+import 'package:pribumi_apps/providers/residential_provider.dart';
 import 'package:pribumi_apps/services/location_service.dart';
-import 'package:pribumi_apps/services/residential_service.dart';
 import 'package:pribumi_apps/theme.dart';
+import 'package:shimmer/shimmer.dart';
 import 'widgets/residential_tile.dart';
 import 'widgets/residential_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     Future.microtask(() => LocationService.chekPermission(context));
@@ -50,42 +53,33 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 width: 8,
               ),
-              FutureBuilder(
-                future: LocationService.getAddress(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                      height: 18,
-                      width: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                      ),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Flexible(
+              ref.watch(addressProvider).when(
+                    data: (data) => Flexible(
                       child: Text(
-                        snapshot.data!,
+                        data,
                         style: textPrimarystyle.copyWith(
                             fontSize: 13, fontWeight: semiBold),
                         overflow: TextOverflow.ellipsis,
                       ),
-                    );
-                  } else {
-                    return Flexible(
+                    ),
+                    error: (error, stackTrace) => Flexible(
                       child: Text(
                         'alamat tidak ditemukan',
                         style: textPrimarystyle.copyWith(
                             fontSize: 13, fontWeight: semiBold),
                         overflow: TextOverflow.ellipsis,
                       ),
-                    );
-                  }
-                },
-              )
+                    ),
+                    loading: () => Text(
+                      '.....',
+                      style: textPrimarystyle.copyWith(
+                          fontSize: 13, fontWeight: semiBold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
             ],
           ),
-          const SizedBox(height: 15),
+          verticalSpace(15),
           Text.rich(
             TextSpan(
               children: [
@@ -101,10 +95,38 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          verticalSpace(8),
           const SarchButton(),
-          const SizedBox(height: 20),
+          verticalSpace(20),
         ],
+      );
+    }
+
+    Widget shimmerLoading() {
+      return Shimmer.fromColors(
+        baseColor: Colors.grey.withOpacity(0.5),
+        highlightColor: Colors.grey.withOpacity(0.6),
+        period: const Duration(seconds: 2),
+        direction: ShimmerDirection.rtl,
+        child: Padding(
+          padding: EdgeInsets.zero,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 300,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  margin: const EdgeInsets.only(right: 16.0),
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+              ],
+            ),
+          ),
+        ),
       );
     }
 
@@ -116,39 +138,30 @@ class _HomePageState extends State<HomePage> {
             'Nearby',
             style: textPrimarystyle.copyWith(fontSize: 16, fontWeight: bold),
           ),
-          const SizedBox(height: 10),
+          verticalSpace(10),
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: FutureBuilder(
-              future: ResidentialService.listWithDistance(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Row(
-                    children: snapshot.data!
-                        .map(
-                          (e) => ResidentialCard(residential: e),
-                        )
-                        .toList()
-                      // kode untuk mengurutkan dari jarak terdekat ke jarak terjauh
-                      ..sort(
-                        ((a, b) => a.residential.distance!
-                            .compareTo(b.residential.distance!)),
-                      ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
-          ),
-          const SizedBox(height: 20)
+              scrollDirection: Axis.horizontal,
+              child: ref.watch(residentialProvider).when(
+                    data: (data) => Row(
+                      children: data
+                          .map(
+                            (e) => ResidentialCard(residential: e),
+                          )
+                          .toList()
+                        // kode untuk mengurutkan dari jarak terdekat ke jarak terjauh
+                        ..sort(
+                          ((a, b) => a.residential.distance!
+                              .compareTo(b.residential.distance!)),
+                        ),
+                    ),
+                    error: (error, stackTrace) => Center(
+                      child: Text(error.toString()),
+                    ),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )),
+          verticalSpace(20)
         ],
       );
     }
@@ -161,12 +174,25 @@ class _HomePageState extends State<HomePage> {
             'List Perumahan',
             style: textPrimarystyle.copyWith(fontSize: 16, fontWeight: bold),
           ),
-          const SizedBox(height: 10),
-          Column(
-            children: DataResidential.listResedential
-                .map((e) => const ResidentialTile())
-                .toList(),
-          )
+          verticalSpace(10),
+          ref.watch(residentialProvider).when(
+                data: (data) => Column(
+                  children: data
+                      .map(
+                        (e) => ResidentialTile(
+                          residential: e,
+                        ),
+                      )
+                      .toList(),
+                ),
+                error: (error, stackTrace) => Center(
+                  child: Text(error.toString()),
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+
           // FutureBuilder(future: Database.getData(), builder: (context, snapshot) {
 
           // },)
@@ -181,47 +207,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             header(),
             nearby(),
+            // shimmerLoading(),
             content(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class SarchButton extends StatelessWidget {
-  const SarchButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SearchPage(),
-            ));
-      },
-      child: Center(
-        child: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width / 1.25,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          decoration: BoxDecoration(
-              color: const Color(0x1F29292E),
-              borderRadius: BorderRadius.circular(10)),
-          child: const Row(
-            children: [
-              Icon(Icons.search),
-              SizedBox(
-                width: 10.0,
-              ),
-              Expanded(child: Text('Cari rumah impian anda')),
-              Icon(Iconsax.filter)
-            ],
-          ),
         ),
       ),
     );

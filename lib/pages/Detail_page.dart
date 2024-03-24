@@ -1,61 +1,80 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pribumi_apps/misc/methods.dart';
+import 'package:pribumi_apps/models/residential_model.dart';
+import 'package:pribumi_apps/pages/widgets/image_item.dart';
 
 import '../theme.dart';
-import 'Widgets/list_image_item.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  const DetailPage({super.key, required this.residential});
+
+  final ResidentialModel residential;
 
   @override
   Widget build(BuildContext context) {
     Widget header() {
-      return Container(
-        height: 260,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
+      return CachedNetworkImage(
+        imageUrl: residential.image ?? '',
+        imageBuilder: (context, imageProvider) => Container(
+          height: 260,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
+              image: DecorationImage(image: imageProvider, fit: BoxFit.fill)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: const Color(0xEFD8D8DB),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 20,
+                      )),
+                ),
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: const Color(0xEFD8D8DB),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.book_rounded,
+                        size: 22,
+                        color: Colors.black,
+                      )),
+                ),
+              ],
             ),
-            image: DecorationImage(
-                image: AssetImage('assets/house1.png'), fit: BoxFit.fill)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                  color: const Color(0xEFD8D8DB),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 20,
-                    )),
-              ),
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                  color: const Color(0xEFD8D8DB),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.book_rounded,
-                      size: 22,
-                      color: Colors.black,
-                    )),
-              ),
-            ],
+          ),
+        ),
+        placeholder: (context, url) => const SizedBox(
+          height: 260,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        errorWidget: (context, url, error) => const SizedBox(
+          height: 260,
+          child: Center(
+            child: Icon(Icons.error),
           ),
         ),
       );
@@ -67,59 +86,55 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  ListImage(),
-                  ListImage(),
-                  ListImage(),
-                  ListImage(),
-                  ListImage(),
-                ],
+                children: residential.photos!
+                    .map((url) => ImageItem(url: url as String))
+                    .toList(),
               ),
             ),
-            const SizedBox(height: 10),
+            verticalSpace(10),
             const Divider(),
             Text(
-              'Perum Anugrah indah',
+              residential.name ?? '',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: textPrimarystyle.copyWith(fontSize: 20, fontWeight: bold),
             ),
-            const Text(
-              'J6RQ+4MC, Jl. Letjen Mashudi, RT.05/RW.02, Kersanagara, Kec. Cibeureum, Kab. Tasikmalaya, Jawa Barat 46196',
+            Text(
+              residential.address ?? '',
               maxLines: 2,
             ),
-            const SizedBox(height: 7),
+            verticalSpace(7),
             Text(
               'Deskripsi',
               style:
                   textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
-            const SizedBox(height: 5),
-            const Text(
-                'An exclusive enclave of luxurious homes along a tranquil river. Meticulously designed, each estate offers modern amenities, panoramic views, and the epitome of refined living.'),
-            const SizedBox(height: 7),
+            verticalSpace(5),
+            Text(residential.description ?? ''),
+            verticalSpace(7),
             Text(
               'Akses',
               style:
                   textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
-            Row(
-              children: [
-                Icon(Icons.report_gmailerrorred_rounded, color: bgColor),
-                const SizedBox(width: 8),
-                Text(
-                  '800 m ke jalan RAYA',
-                  style: textPrimarystyle.copyWith(
-                      fontSize: 12, fontWeight: semiBold),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            ...residential.access!.map((e) {
+              String access = e as String;
+              bool isEmpty = access.isEmpty;
+              return Row(
+                children: [
+                  Icon(Icons.report_gmailerrorred_rounded, color: bgColor),
+                  horizontalSpace(8),
+                  Text(
+                    isEmpty == true ? '-' : access,
+                    style: textPrimarystyle.copyWith(
+                        fontSize: 12, fontWeight: semiBold),
+                  )
+                ],
+              );
+            }),
           ],
         ),
       );

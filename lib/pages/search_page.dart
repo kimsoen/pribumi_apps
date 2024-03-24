@@ -1,72 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pribumi_apps/models/residential_model.dart';
-import 'package:pribumi_apps/services/location_service.dart';
-import 'package:pribumi_apps/services/residential_service.dart';
+import 'package:pribumi_apps/misc/methods.dart';
+import 'package:pribumi_apps/pages/widgets/residential_grid_card.dart';
+import 'package:pribumi_apps/providers/address_provider.dart';
+import 'package:pribumi_apps/providers/residential_provider.dart';
 import 'package:pribumi_apps/theme.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  List<ResidentialModel> residentials = [];
-  List<ResidentialModel> foundResidentials = [];
-  bool isLoading = true;
-
-  getListResidential() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    residentials = await ResidentialService.listWithDistance();
-
-    foundResidentials = residentials;
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  void filterResidentials(String nameResidential) {
-    // Create result variable
-    List<ResidentialModel> result = [];
-
-    // Condition nameResidential is empety
-    if (nameResidential.isEmpty) {
-      setState(() {
-        result = residentials;
-      });
-
-      // Condition nameResidential not empety
-    } else {
-      setState(() {
-        result = residentials
-            .where(
-              (element) => element.name.toString().toLowerCase().contains(
-                    nameResidential.toLowerCase(),
-                  ),
-            )
-            .toList();
-      });
-    }
-
-    setState(() {
-      foundResidentials = result;
-    });
-  }
-
-  @override
-  void initState() {
-    Future.microtask(() => getListResidential());
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Widget header() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,10 +19,24 @@ class _SearchPageState extends State<SearchPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Location",
-                style: textPrimarystyle.copyWith(
-                    fontSize: 16, fontWeight: semiBold),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    padding: const EdgeInsets.only(right: 8.0),
+                    visualDensity: const VisualDensity(
+                        horizontal: VisualDensity.minimumDensity,
+                        vertical: VisualDensity.minimumDensity),
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                  Text(
+                    "Location",
+                    style: textPrimarystyle.copyWith(
+                        fontSize: 16, fontWeight: semiBold),
+                  ),
+                ],
               ),
               IconButton(
                 onPressed: () {},
@@ -95,48 +54,40 @@ class _SearchPageState extends State<SearchPage> {
               const SizedBox(
                 width: 8,
               ),
-              FutureBuilder(
-                future: LocationService.getAddress(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                      height: 18,
-                      width: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                      ),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Flexible(
+              ref.watch(addressProvider).when(
+                    data: (data) => Flexible(
                       child: Text(
-                        snapshot.data!,
+                        data,
                         style: textPrimarystyle.copyWith(
                             fontSize: 13, fontWeight: semiBold),
                         overflow: TextOverflow.ellipsis,
                       ),
-                    );
-                  } else {
-                    return Flexible(
+                    ),
+                    error: (error, stackTrace) => Flexible(
                       child: Text(
                         'alamat tidak ditemukan',
                         style: textPrimarystyle.copyWith(
                             fontSize: 13, fontWeight: semiBold),
                         overflow: TextOverflow.ellipsis,
                       ),
-                    );
-                  }
-                },
-              )
+                    ),
+                    loading: () => const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                      ),
+                    ),
+                  )
             ],
           ),
-          const SizedBox(height: 20),
+          verticalSpace(20),
           SearchField(
             onChanged: (value) {
-              filterResidentials(value);
+              ref.watch(residentialProvider.notifier).filterResidentials(value);
             },
           ),
-          const SizedBox(height: 20),
+          verticalSpace(20),
         ],
       );
     }
@@ -155,16 +106,16 @@ class _SearchPageState extends State<SearchPage> {
           const SizedBox(
             height: 20.0,
           ),
-          (isLoading == false)
-              ? GridView(
+          ref.watch(residentialProvider).when(
+                data: (data) => GridView(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.75,
+                    childAspectRatio: 0.74,
                     crossAxisSpacing: 15,
                   ),
-                  children: foundResidentials
+                  children: data
                       .map(
                         (e) => ResidentialGridCard(
                           residential: e,
@@ -175,10 +126,14 @@ class _SearchPageState extends State<SearchPage> {
                       ((a, b) => a.residential.distance!
                           .compareTo(b.residential.distance!)),
                     ),
-                )
-              : const Center(
+                ),
+                error: (error, stackTrace) => Center(
+                  child: Text(error.toString()),
+                ),
+                loading: () => const Center(
                   child: CircularProgressIndicator(),
-                )
+                ),
+              )
         ],
       );
     }
@@ -224,47 +179,6 @@ class SearchField extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ResidentialGridCard extends StatelessWidget {
-  const ResidentialGridCard({
-    super.key,
-    required this.residential,
-  });
-
-  final ResidentialModel residential;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 130,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: AssetImage(residential.image ?? 'assets/house1.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            bottom: 5,
-          ),
-          child: Text(
-            'Jarak ${residential.distance!.toStringAsFixed(0)} Km',
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Text(residential.name ?? ''),
-        ),
-      ],
     );
   }
 }

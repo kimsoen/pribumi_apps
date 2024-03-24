@@ -17,6 +17,7 @@ class Database {
       return categories.docs;
     } catch (e) {
       // print(e);
+      print('ini error $e');
       rethrow;
     }
   }

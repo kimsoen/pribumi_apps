@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pribumi_apps/misc/methods.dart';
 import 'package:pribumi_apps/models/residential_model.dart';
 
 import '../../theme.dart';
@@ -19,7 +21,9 @@ class ResidentialCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const DetailPage(),
+              builder: (context) => DetailPage(
+                residential: residential,
+              ),
             ));
       },
       child: Container(
@@ -32,15 +36,29 @@ class ResidentialCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 210,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      residential.image ?? '',
-                    ),
-                    fit: BoxFit.fill),
+            CachedNetworkImage(
+              imageUrl: residential.image ?? '',
+              imageBuilder: (context, imageProvider) => Container(
+                height: 210,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.fill),
+                ),
+              ),
+              placeholder: (context, url) => SizedBox(
+                height: 210,
+                width: MediaQuery.of(context).size.width,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              errorWidget: (context, url, error) => SizedBox(
+                height: 210,
+                width: MediaQuery.of(context).size.width,
+                child: const Center(
+                  child: Icon(Icons.error),
+                ),
               ),
             ),
             Padding(
@@ -55,7 +73,7 @@ class ResidentialCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 3),
+                  verticalSpace(3),
                   Text(
                     residential.address ?? '',
                     style: secondarytextstyle.copyWith(
@@ -63,14 +81,14 @@ class ResidentialCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 5),
+                  verticalSpace(5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         children: [
                           const Icon(Icons.route_outlined, size: 20),
-                          const SizedBox(width: 5),
+                          horizontalSpace(5),
                           Text(
                             'Jarak ${residential.distance!.toStringAsFixed(0)} Km',
                             style: secondarytextstyle.copyWith(),
@@ -80,7 +98,7 @@ class ResidentialCard extends StatelessWidget {
                       Row(
                         children: [
                           const Icon(Icons.pool_rounded, size: 20),
-                          const SizedBox(width: 5),
+                          horizontalSpace(5),
                           Text(
                             'NO',
                             style: secondarytextstyle.copyWith(),
@@ -90,7 +108,7 @@ class ResidentialCard extends StatelessWidget {
                       Row(
                         children: [
                           const Icon(Icons.garage_outlined, size: 20),
-                          const SizedBox(width: 5),
+                          horizontalSpace(5),
                           Text(
                             'YES',
                             style: secondarytextstyle.copyWith(),
