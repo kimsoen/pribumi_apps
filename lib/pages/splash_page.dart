@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pribumi_apps/navbar.dart';
 
 class SplashPage extends StatefulWidget {
@@ -40,8 +41,9 @@ class _SplashPageState extends State<SplashPage> {
 
   _nextPage() async {
     await _chekPermission(context);
+
     Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 4),
       () {
         if (mounted) {
           Navigator.pushReplacement(
@@ -58,16 +60,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     _nextPage();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Lottie.asset('assets/lottie_home.json', width: 200, height: 200),
       ),
     );
   }
