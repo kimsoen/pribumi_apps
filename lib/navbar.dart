@@ -52,14 +52,17 @@ class _NavBarpageState extends State<NavBarpage> {
                 icon: Icon(
                   Iconsax.home,
                   color: currentindex == 0 ? bgColor : bgColor2,
+                  size: 30,
                 ),
-                label: ("")),
+                label: "HOME"),
             NavigationDestination(
-                icon: Icon(
-                  Icons.map_outlined,
-                  color: currentindex == 1 ? bgColor : bgColor2,
-                ),
-                label: ("")),
+              icon: Icon(
+                Icons.map_outlined,
+                color: currentindex == 1 ? bgColor : bgColor2,
+                size: 30,
+              ),
+              label: "MAPS",
+            ),
             // NavigationDestination(
             //     icon: Icon(
             //       Iconsax.heart,
@@ -67,11 +70,13 @@ class _NavBarpageState extends State<NavBarpage> {
             //     ),
             //     label: ("")),
             NavigationDestination(
-                icon: Icon(
-                  Iconsax.setting,
-                  color: currentindex == 3 ? bgColor : bgColor2,
-                ),
-                label: ("")),
+              icon: Icon(
+                Iconsax.setting,
+                color: currentindex == 3 ? bgColor : bgColor2,
+                size: 30,
+              ),
+              label: 'INFO',
+            ),
           ]);
     }
 

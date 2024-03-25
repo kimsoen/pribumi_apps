@@ -159,43 +159,39 @@ class DetailPage extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 50,
-              width: 140,
+              height: 60,
+              width: 300,
               decoration: BoxDecoration(
                 color: Colors.green,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'On The Way ',
-                    style: textPrimarystyle.copyWith(
-                        fontSize: 14, fontWeight: bold),
+                  Expanded(
+                    child: SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: Text(
+                          'RUTE',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
                   ),
-                  const Icon(Icons.alt_route)
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-              width: 140,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Icon(Icons.call_outlined),
-                  Text(
-                    'HUBUNGI',
-                    style: textPrimarystyle.copyWith(
-                        fontSize: 14, fontWeight: bold),
-                  ),
+                  SizedBox(
+                    height: 60,
+                    width: 60,
+                    child: Icon(
+                      Icons.alt_route,
+                      size: 35,
+                    ),
+                  )
                 ],
               ),
             ),
