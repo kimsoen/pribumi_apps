@@ -94,7 +94,7 @@ class ResidentialCard extends StatelessWidget {
                           const Icon(Icons.route_outlined, size: 20),
                           horizontalSpace(5),
                           Text(
-                            'Jarak ${residential.distance!.toStringAsFixed(0)} Km',
+                            'Jarak ${residential.distance!.toStringAsFixed(0)} M',
                             style: secondarytextstyle.copyWith(),
                           )
                         ],

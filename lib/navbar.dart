@@ -52,14 +52,14 @@ class _NavBarpageState extends State<NavBarpage> {
                 icon: Icon(
                   Iconsax.home,
                   color: currentindex == 0 ? bgColor : bgColor2,
-                  size: 30,
+                  size: 25,
                 ),
                 label: "HOME"),
             NavigationDestination(
               icon: Icon(
                 Icons.map_outlined,
                 color: currentindex == 1 ? bgColor : bgColor2,
-                size: 30,
+                size: 25,
               ),
               label: "MAPS",
             ),
@@ -71,9 +71,9 @@ class _NavBarpageState extends State<NavBarpage> {
             //     label: ("")),
             NavigationDestination(
               icon: Icon(
-                Iconsax.setting,
+                Iconsax.info_circle,
                 color: currentindex == 3 ? bgColor : bgColor2,
-                size: 30,
+                size: 25,
               ),
               label: 'INFO',
             ),

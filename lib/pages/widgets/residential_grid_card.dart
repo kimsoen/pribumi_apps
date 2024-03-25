@@ -57,7 +57,7 @@ class ResidentialGridCard extends StatelessWidget {
               bottom: 5,
             ),
             child: Text(
-              'Jarak ${residential.distance!.toStringAsFixed(0)} Km',
+              'Jarak ${residential.distance!.toStringAsFixed(0)} m',
             ),
           ),
           Padding(
