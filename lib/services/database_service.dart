@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Database {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -13,11 +14,11 @@ class Database {
 
   static Future<List<QueryDocumentSnapshot>> _fetchresidential() async {
     try {
-      var categories = await _residentialRef.get();
-      return categories.docs;
+      var snapshot = await _residentialRef.get();
+      return snapshot.docs;
     } catch (e) {
       // print(e);
-      print('ini error $e');
+      debugPrint('ini error acces firestore $e');
       rethrow;
     }
   }

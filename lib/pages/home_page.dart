@@ -83,7 +83,7 @@ class HomePage extends ConsumerWidget {
               ],
             ),
           ),
-          verticalSpace(8),
+          verticalSpace(20),
           const SarchButton(),
           verticalSpace(20),
         ],
