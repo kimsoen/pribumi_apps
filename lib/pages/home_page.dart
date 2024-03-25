@@ -4,29 +4,17 @@ import 'package:pribumi_apps/misc/methods.dart';
 import 'package:pribumi_apps/pages/widgets/search_button.dart';
 import 'package:pribumi_apps/providers/address_provider.dart';
 import 'package:pribumi_apps/providers/residential_provider.dart';
-import 'package:pribumi_apps/services/location_service.dart';
 import 'package:pribumi_apps/theme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'widgets/residential_tile.dart';
 import 'widgets/residential_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  @override
-  void initState() {
-    Future.microtask(() => LocationService.chekPermission(context));
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Widget header() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,19 +90,27 @@ class _HomePageState extends ConsumerState<HomePage> {
       );
     }
 
-    Widget shimmerLoading() {
+    Widget shimmerNearby() {
       return Shimmer.fromColors(
-        baseColor: Colors.grey.withOpacity(0.5),
-        highlightColor: Colors.grey.withOpacity(0.6),
+        baseColor: Colors.grey.withOpacity(0.6),
+        highlightColor: Colors.grey.withOpacity(0.3),
         period: const Duration(seconds: 2),
         direction: ShimmerDirection.rtl,
         child: Padding(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.only(left: 8.0),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  height: 300,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  margin: const EdgeInsets.only(right: 16.0),
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(20)),
+                ),
                 Container(
                   height: 300,
                   width: MediaQuery.of(context).size.width / 1.2,
@@ -157,12 +153,57 @@ class _HomePageState extends ConsumerState<HomePage> {
                     error: (error, stackTrace) => Center(
                       child: Text(error.toString()),
                     ),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    loading: () => shimmerNearby(),
                   )),
           verticalSpace(20)
         ],
+      );
+    }
+
+    Widget shimmerContent() {
+      return Shimmer.fromColors(
+        baseColor: Colors.grey.withOpacity(0.6),
+        highlightColor: Colors.grey.withOpacity(0.3),
+        period: const Duration(seconds: 2),
+        direction: ShimmerDirection.rtl,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -188,9 +229,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 error: (error, stackTrace) => Center(
                   child: Text(error.toString()),
                 ),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                loading: () => shimmerContent(),
               )
 
           // FutureBuilder(future: Database.getData(), builder: (context, snapshot) {
@@ -207,7 +246,6 @@ class _HomePageState extends ConsumerState<HomePage> {
           children: [
             header(),
             nearby(),
-            // shimmerLoading(),
             content(),
           ],
         ),

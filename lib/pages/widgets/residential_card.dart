@@ -31,8 +31,9 @@ class ResidentialCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 1.2,
         margin: const EdgeInsets.only(right: 16.0),
         decoration: BoxDecoration(
-            color: const Color(0x1F29292E),
-            borderRadius: BorderRadius.circular(20)),
+          color: const Color(0x1F29292E),
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,6 +43,9 @@ class ResidentialCard extends StatelessWidget {
                 height: 210,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
                   image:
                       DecorationImage(image: imageProvider, fit: BoxFit.fill),
                 ),
