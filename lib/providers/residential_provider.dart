@@ -95,7 +95,7 @@ class Residential extends _$Residential {
             position.longitude, value.latitude!, value.longitude!);
 
         // Hasil perhitungan di bagi 1000 karena akan di tampilkan dalam satuan (Km)
-        double distance = result / 1000;
+        double distance = result;
 
         // Update ResidentialModel
         ResidentialModel data = ResidentialModel(
