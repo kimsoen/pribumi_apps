@@ -4,19 +4,64 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pribumi_apps/misc/methods.dart';
 import 'package:pribumi_apps/models/residential_model.dart';
 import 'package:pribumi_apps/pages/widgets/image_item.dart';
+import 'package:pribumi_apps/providers/residential_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../theme.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
+  final ResidentialModel residential;
   const DetailPage({super.key, required this.residential});
 
-  final ResidentialModel residential;
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  BitmapDescriptor mapIcons = BitmapDescriptor.defaultMarker;
+
+  @override
+  void initState() {
+    custumMarker();
+    super.initState();
+  }
+
+  void custumMarker() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(), 'assets/marker.png')
+        .then((value) {
+      setState(() {
+        mapIcons = value;
+      });
+    });
+  }
+
+  Future<void> goToMap(String url) async {
+    final linkUrl = url;
+    try {
+      if (await canLaunch(linkUrl)) {
+        await launch(
+          url,
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> _marker = [
+      Marker(
+          markerId: const MarkerId('value'),
+          position: LatLng(
+              widget.residential.latitude!, widget.residential.longitude!),
+          icon: mapIcons),
+    ];
+
     Widget header() {
       return CachedNetworkImage(
-        imageUrl: residential.image ?? '',
+        imageUrl: widget.residential.image ?? '',
         imageBuilder: (context, imageProvider) => Container(
           height: 260,
           decoration: BoxDecoration(
@@ -89,7 +134,7 @@ class DetailPage extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: residential.photos!
+                children: widget.residential.photos!
                     .map((url) => ImageItem(url: url as String))
                     .toList(),
               ),
@@ -97,13 +142,13 @@ class DetailPage extends StatelessWidget {
             verticalSpace(10),
             const Divider(),
             Text(
-              residential.name ?? '',
+              widget.residential.name ?? '',
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: textPrimarystyle.copyWith(fontSize: 20, fontWeight: bold),
             ),
             Text(
-              residential.address ?? '',
+              widget.residential.address ?? '',
               maxLines: 2,
             ),
             verticalSpace(7),
@@ -113,14 +158,14 @@ class DetailPage extends StatelessWidget {
                   textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
             verticalSpace(5),
-            Text(residential.description ?? ''),
+            Text(widget.residential.description ?? ''),
             verticalSpace(7),
             Text(
-              'Akses',
+              'Type',
               style:
                   textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
-            ...residential.access!.map((e) {
+            ...widget.residential.access!.map((e) {
               String access = e as String;
               bool isEmpty = access.isEmpty;
               return Row(
@@ -141,62 +186,70 @@ class DetailPage extends StatelessWidget {
     }
 
     Widget miniMaps() {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        height: 200,
-        width: double.infinity,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-        child: const GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(-7.3701444, 108.2391412),
-            zoom: 14,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(
+              "Lokasi",
+              style:
+                  textPrimarystyle.copyWith(fontSize: 16, fontWeight: semiBold),
+            ),
           ),
-        ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            height: 200,
+            width: double.infinity,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: GoogleMap(
+              markers: _marker.toSet(),
+              initialCameraPosition: CameraPosition(
+                target: LatLng(widget.residential.latitude!,
+                    widget.residential.longitude!),
+                zoom: 15,
+              ),
+            ),
+          ),
+        ],
       );
     }
 
     Widget footer() {
       return Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 60,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          'RUTE',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
+        padding: const EdgeInsets.all(20),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: bgColor),
+            onPressed: () async {
+              await goToMap('https://maps.app.goo.gl/3ZLNnSNTYAhE6cfM8');
+            },
+            child: const Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 60,
+                    child: Center(
+                      child: Text(
+                        'RUTE',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: Icon(
-                      Icons.alt_route,
-                      size: 35,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: Icon(
+                    Icons.rocket_outlined,
+                    size: 35,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            )),
       );
     }
 

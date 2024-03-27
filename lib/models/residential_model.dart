@@ -16,6 +16,7 @@ class ResidentialModel with _$ResidentialModel {
     double? distance,
     double? latitude,
     double? longitude,
+    String? mapUrl,
   }) = _ResidentialModel;
 
   factory ResidentialModel.fromJSON(String id, Map<String, dynamic> json) =>

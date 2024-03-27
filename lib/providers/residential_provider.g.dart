@@ -6,12 +6,12 @@ part of 'residential_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$residentialHash() => r'5f1cd86f5374ef14c1f6b43d921679a011c17391';
+String _$residentialHash() => r'737d750ed9bdc7f2e88098c36f8f8640d267aa43';
 
 /// See also [Residential].
 @ProviderFor(Residential)
-final residentialProvider = AutoDisposeAsyncNotifierProvider<Residential,
-    List<ResidentialModel>>.internal(
+final residentialProvider =
+    AsyncNotifierProvider<Residential, List<ResidentialModel>>.internal(
   Residential.new,
   name: r'residentialProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final residentialProvider = AutoDisposeAsyncNotifierProvider<Residential,
   allTransitiveDependencies: null,
 );
 
-typedef _$Residential = AutoDisposeAsyncNotifier<List<ResidentialModel>>;
+typedef _$Residential = AsyncNotifier<List<ResidentialModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
